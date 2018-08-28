@@ -35,20 +35,20 @@ problems.）
 * 相似度计算，得到各item之间的相似度
 	* 基于余弦（Cosine-based）的相似度计算
 	
-		![Cosine-based](figures/sim_cosine_based.gif)
+		![Cosine-based](figures/sim_cosine_based.png)
 	* 基于关联（Correlation-based）的相似度计算
 	
-		![Cosine-based](figures/sim_correlation_based.gif)
+		![Cosine-based](figures/sim_correlation_based.png)
 	* 调整的余弦（Adjusted Cosine）相似度计算
 	
-		![Cosine-based](figures/sim_adjusted_cosine_based.gif)
+		![Cosine-based](figures/sim_adjusted_cosine_based.png)
 * 预测值计算，对用户未打分的物品进行预测
 	* 加权求和。用户u已打分的物品的分数进行加权求和，权值为各个物品与物品i的相似度，然后对所有物品相似度的和求平均，计算得到用户u对物品i打分。
 	
-		![Cosine-based](figures/cf_predict_weight_avg.gif)
+		![Cosine-based](figures/cf_predict_weight_avg.png)
 	* 回归。如果两个用户都喜欢一样的物品，因为打分习惯不同，他们的欧式距离可能比较远，但他们应该有较高的相似度 。在通过用线性回归的方式重新估算一个新的R(u,N).
 	
-		![Cosine-based](figures/cf_predict_regression.gif)
+		![Cosine-based](figures/cf_predict_regression.png)
 
 备注：
 在该论文中，作者把user-based CF归类为Memory-based algorithms，把item-based CF归类为Model-based algorithms。但是目前是将user-based CF和item-based CF都归类为Memory-based algorithms。
