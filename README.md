@@ -57,4 +57,26 @@ problems.）
 
 * [基于物品的协同过滤推荐算法——读“Item-Based Collaborative Filtering Recommendation Algorithms”](https://blog.csdn.net/huagong_adu/article/details/7362908)
 * [推荐算法综述2--协同过滤CF](https://blog.csdn.net/u010297828/article/details/51504952)
+* [【每周一文】Factorization Machines](https://blog.csdn.net/fangqingan_java/article/details/50677340)
 
+# 矩阵分解
+## Factorization Machines
+因子分解机(Factorization Machine, FM)是由Steffen Rendle提出的一种基于矩阵分解的机器学习算法。
+
+在进行特征组合的时候，随着阶数的提高，样本会非常稀疏，而且额外引入的参数呈指数增长。比如，当组合的特征个数为2时，复杂度为O(n^3)，通过矩阵分解，可将复杂度降为O(kn^2)，再通过因子分解，可将复杂度降为O(kn)。用梯度下降法进行训练时，求导的复杂度为O(1)，因为求导时所需要的参数都已经在O(kn)的计算过程中计算出来了，因此此处不需要重新计算。
+
+**FM优势**
+
+* 在非常稀疏的数据中也能工作良好，而SVM无法正常工作；
+* 拥有线性复杂度O(kn)；
+* 对所有的实数特征向量都可以工作，而某些算法对输入的数据有严格的限制。
+
+相关阅读：
+
+* [简单易学的机器学习算法——因子分解机(Factorization Machine)](https://blog.csdn.net/google19890102/article/details/45532745)
+* [FM在特征组合中的应用](https://www.cnblogs.com/zhangchaoyang/articles/7897085.html)
+* [FM与LR的区别 - 参考@白刚的回答](https://www.zhihu.com/question/27043630)
+## Field-aware Factorization Machines (FFM)
+相关阅读：
+
+* [FFM原理及公式推导](http://www.cnblogs.com/zhangchaoyang/articles/8157893.html)
