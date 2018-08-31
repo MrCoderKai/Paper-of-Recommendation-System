@@ -41,20 +41,20 @@ problems.）
 
 * 相似度计算，得到各item之间的相似度
 	* 基于余弦（Cosine-based）的相似度计算
-	
+
 		![Cosine-based](figures/sim_cosine_based.png)
 	* 基于关联（Correlation-based）的相似度计算
-	
+
 		![Cosine-based](figures/sim_correlation_based.png)
 	* 调整的余弦（Adjusted Cosine）相似度计算
-	
+
 		![Cosine-based](figures/sim_adjusted_cosine_based.png)
 * 预测值计算，对用户未打分的物品进行预测
 	* 加权求和。用户u已打分的物品的分数进行加权求和，权值为各个物品与物品i的相似度，然后对所有物品相似度的和求平均，计算得到用户u对物品i打分。
-	
+
 		![Cosine-based](figures/cf_predict_weight_avg.png)
 	* 回归。如果两个用户都喜欢一样的物品，因为打分习惯不同，他们的欧式距离可能比较远，但他们应该有较高的相似度 。在通过用线性回归的方式重新估算一个新的R(u,N).
-	
+
 		![Cosine-based](figures/cf_predict_regression.png)
 
 备注：
@@ -97,9 +97,29 @@ problems.）
 
 # Click-Through-Ratio Estimation
 ## *Factorization Machines*
-因子分解机(Factorization Machine, FM)是由Steffen Rendle提出的一种基于矩阵分解的机器学习算法。
+因子分解机(Factorization Machine, FM)是由Steffen Rendle提出的一种基于矩阵分解的机器学习算法。注意，此处的矩阵分解不是矩阵论里讲的奇异值分解之类的。
 
-在进行特征组合的时候，随着阶数的提高，样本会非常稀疏，而且额外引入的参数呈指数增长。比如，当组合的特征个数为2时，复杂度为O(n^3)，通过矩阵分解，可将复杂度降为O(kn^2)，再通过因子分解，可将复杂度降为O(kn)。用梯度下降法进行训练时，求导的复杂度为O(1)，因为求导时所需要的参数都已经在O(kn)的计算过程中计算出来了，因此此处不需要重新计算。
+在进行特征组合的时候，随着阶数的提高，样本会非常稀疏，而且额外引入的参数呈指数增长。比如，当组合的特征个数为2时，复杂度为O(n^3)，通过矩阵分解，可将复杂度降为O(kn^2)，再通过因子分解，可将复杂度降为O(kn)。用梯度下降法进行训练时，求导的复杂度为O(1)，因为求导时所需要的参数都已经在O(kn)的计算过程中计算出来了，因此此处不需要重新计算（论文的III-C有分析）。
+
+FM可以应用的场景非常多，比如
+
+* Regerssion
+* Binary Classification
+* Ranking
+
+在以上场景中，通常使用L2正则项以防过拟合。
+
+### FM与SVM的对比
+![FM与SVM对比1](figures/fm_svm_2_way_cmp1.png)
+
+![FM与SVM对比1](figures/fm_svm_2_way_cmp2.png)
+
+主要的区别就是FM的参数不是独立的，在不同实体上可以共享，而SVM中的参数是独立的，不可共享的。
+
+在稀疏条件下，SVM失败的原因为（详细请查看论文Section IV-B）
+
+* 对于线性SVM，其可以正常工作，但是预测结果很差；
+* 对于多项式SVM（以二次多项式为例），其可以获得二次交叉项的偏置，但是由于数据的稀疏性，导致该偏置在测试集中找不到对应的观察项，所以该偏置也就派不上用场了。因此多项式SVM并不比线性SVM性能好。
 
 **FM优势**
 
